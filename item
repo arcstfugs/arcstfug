@@ -1,0 +1,930 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARCSTFUG Learning App</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f4f6fb;
+  color:#151923;
+  padding-bottom:75px;
+}
+
+.header{
+  background:linear-gradient(135deg,#4f46e5,#7c3aed);
+  color:white;
+  padding:25px 18px;
+  border-radius:0 0 25px 25px;
+}
+
+.logo{
+  font-size:28px;
+  font-weight:800;
+}
+
+.tagline{
+  margin-top:5px;
+  opacity:.9;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:16px;
+}
+
+.card{
+  background:white;
+  border-radius:18px;
+  padding:18px;
+  margin:14px 0;
+  box-shadow:0 4px 18px rgba(0,0,0,.08);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.tile{
+  background:white;
+  border-radius:18px;
+  padding:20px 14px;
+  box-shadow:0 3px 12px rgba(0,0,0,.07);
+  cursor:pointer;
+}
+
+.tile h3{
+  margin-bottom:7px;
+}
+
+.small{
+  color:#707787;
+  font-size:13px;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+.primary{
+  background:#4f46e5;
+  color:white;
+  padding:11px 17px;
+  border-radius:11px;
+}
+
+.danger{
+  background:#ef4444;
+  color:white;
+  padding:8px 12px;
+  border-radius:9px;
+}
+
+input,select{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:11px;
+  margin:7px 0 12px;
+  outline:none;
+}
+
+input:focus,select:focus{
+  border-color:#4f46e5;
+}
+
+video{
+  width:100%;
+  max-height:450px;
+  border-radius:14px;
+  background:#111;
+  margin-top:12px;
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  display:flex;
+  justify-content:space-around;
+  padding:9px 3px;
+  box-shadow:0 -3px 15px rgba(0,0,0,.1);
+  z-index:100;
+}
+
+.bottom-nav button{
+  background:none;
+  color:#555;
+  font-size:12px;
+}
+
+.bottom-nav span{
+  display:block;
+  font-size:21px;
+  margin-bottom:2px;
+}
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
+
+.item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.badge{
+  display:inline-block;
+  background:#eef0ff;
+  color:#4f46e5;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  margin-top:6px;
+}
+
+.empty{
+  text-align:center;
+  padding:25px;
+  color:#777;
+}
+
+footer{
+  text-align:center;
+  padding:25px 10px;
+  color:#777;
+  font-size:13px;
+}
+
+@media(max-width:500px){
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo">ARCSTFUG</div>
+  <div class="tagline">
+    Learning • Courses • Videos • Resources
+  </div>
+</header>
+
+
+<main class="container">
+
+<!-- HOME -->
+<section id="home" class="section active">
+
+  <div class="card">
+    <h2>Welcome to ARCSTFUG 👋</h2>
+    <p class="small" style="margin-top:8px">
+      Your learning platform for courses, video classes,
+      study materials and tests.
+    </p>
+  </div>
+
+  <div class="grid">
+
+    <div class="tile" onclick="openSection('courses')">
+      <h3>📚 Courses</h3>
+      <p class="small">Explore your batches</p>
+    </div>
+
+    <div class="tile" onclick="openSection('videos')">
+      <h3>🎥 Videos</h3>
+      <p class="small">Watch video classes</p>
+    </div>
+
+    <div class="tile" onclick="openSection('resources')">
+      <h3>📄 Resources</h3>
+      <p class="small">PDFs and useful links</p>
+    </div>
+
+    <div class="tile" onclick="openSection('tests')">
+      <h3>📝 Tests</h3>
+      <p class="small">Practice tests</p>
+    </div>
+
+  </div>
+
+  <div class="card">
+    <h3>📢 Community</h3>
+    <p class="small" style="margin:8px 0">
+      Join ARCSTFUG community.
+    </p>
+
+    <button class="primary"
+      onclick="openCommunity()">
+      Open Community
+    </button>
+  </div>
+
+</section>
+
+
+<!-- COURSES -->
+<section id="courses" class="section">
+
+  <h2>📚 Courses</h2>
+
+  <div id="courseList"></div>
+
+</section>
+
+
+<!-- VIDEOS -->
+<section id="videos" class="section">
+
+  <h2>🎥 Video Classes</h2>
+
+  <div id="videoList"></div>
+
+</section>
+
+
+<!-- RESOURCES -->
+<section id="resources" class="section">
+
+  <h2>📄 Resources</h2>
+
+  <div id="resourceList"></div>
+
+</section>
+
+
+<!-- TESTS -->
+<section id="tests" class="section">
+
+  <h2>📝 Tests</h2>
+
+  <div class="card">
+    <h3>JEE Practice Test</h3>
+    <p class="small">
+      Practice section is ready for your own questions.
+    </p>
+
+    <button class="primary"
+      onclick="alert('Test module can be connected with your question database.')">
+      Start Test
+    </button>
+  </div>
+
+</section>
+
+
+<!-- COMMUNITY -->
+<section id="community" class="section">
+
+  <h2>👥 Community</h2>
+
+  <div class="card">
+
+    <h3>ARCSTFUG Community</h3>
+
+    <p class="small" style="margin:10px 0">
+      Share announcements, study updates and discussions.
+    </p>
+
+    <button class="primary"
+      onclick="openCommunity()">
+      Join Community
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- SETTINGS -->
+<section id="settings" class="section">
+
+  <h2>⚙️ Settings</h2>
+
+  <div class="card">
+
+    <h3>ARCSTFUG</h3>
+
+    <p class="small" style="margin-top:8px">
+      Version 1.0
+    </p>
+
+    <hr style="margin:15px 0;border:0;border-top:1px solid #eee">
+
+    <p>
+      Powered by
+      <b>Abhishek Kumar & Aniruddh Mishra</b>
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ADMIN -->
+<section id="admin" class="section">
+
+  <h2>⚙️ Admin Panel</h2>
+
+  <!-- ADD VIDEO -->
+
+  <div class="card">
+
+    <h3>🎥 Add Video</h3>
+
+    <input
+      id="videoTitle"
+      placeholder="Video title">
+
+    <input
+      id="videoCourse"
+      placeholder="Course / Batch name">
+
+    <input
+      id="videoURL"
+      placeholder="Authorized video URL">
+
+    <button class="primary"
+      onclick="addVideo()">
+      ➕ Add Video
+    </button>
+
+  </div>
+
+
+  <!-- ADD RESOURCE -->
+
+  <div class="card">
+
+    <h3>📄 Add Resource</h3>
+
+    <input
+      id="resourceName"
+      placeholder="Resource Name">
+
+    <input
+      id="resourceCategory"
+      placeholder="Category">
+
+    <input
+      id="resourceURL"
+      placeholder="Resource URL">
+
+    <button class="primary"
+      onclick="addResource()">
+      ➕ Add Resource
+    </button>
+
+  </div>
+
+
+  <!-- ADMIN DATA -->
+
+  <div class="card">
+
+    <h3>📊 App Data</h3>
+
+    <p>
+      Videos:
+      <b id="videoCount">0</b>
+    </p>
+
+    <p style="margin-top:7px">
+      Resources:
+      <b id="resourceCount">0</b>
+    </p>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+  <button onclick="openSection('home')">
+    <span>🏠</span>
+    Home
+  </button>
+
+  <button onclick="openSection('courses')">
+    <span>📚</span>
+    Courses
+  </button>
+
+  <button onclick="openSection('videos')">
+    <span>🎥</span>
+    Videos
+  </button>
+
+  <button onclick="openSection('resources')">
+    <span>📄</span>
+    Resources
+  </button>
+
+  <button onclick="openSection('settings')">
+    <span>⚙️</span>
+    Settings
+  </button>
+
+</nav>
+
+
+<footer>
+  ARCSTFUG © 2026<br>
+  Powered by Abhishek Kumar & Aniruddh Mishra
+</footer>
+
+
+<script>
+
+/* =========================
+   DATABASE
+========================= */
+
+let videos =
+JSON.parse(
+localStorage.getItem("ARCSTFUG_VIDEOS") || "[]"
+);
+
+let resources =
+JSON.parse(
+localStorage.getItem("ARCSTFUG_RESOURCES") || "[]"
+);
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function openSection(id){
+
+  document
+  .querySelectorAll(".section")
+  .forEach(section=>{
+    section.classList.remove("active");
+  });
+
+  const target =
+  document.getElementById(id);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  renderAll();
+}
+
+
+/* =========================
+   ADD VIDEO
+========================= */
+
+function addVideo(){
+
+  const title =
+  document.getElementById("videoTitle").value.trim();
+
+  const course =
+  document.getElementById("videoCourse").value.trim();
+
+  const url =
+  document.getElementById("videoURL").value.trim();
+
+  if(!title || !url){
+
+    alert("Video title और URL भरें.");
+
+    return;
+  }
+
+  videos.push({
+    id:Date.now(),
+    title:title,
+    course:course || "General Course",
+    url:url
+  });
+
+  localStorage.setItem(
+    "ARCSTFUG_VIDEOS",
+    JSON.stringify(videos)
+  );
+
+  document.getElementById("videoTitle").value="";
+  document.getElementById("videoCourse").value="";
+  document.getElementById("videoURL").value="";
+
+  alert("Video successfully added!");
+
+  openSection("videos");
+}
+
+
+/* =========================
+   ADD RESOURCE
+========================= */
+
+function addResource(){
+
+  const name =
+  document.getElementById("resourceName").value.trim();
+
+  const category =
+  document.getElementById("resourceCategory").value.trim();
+
+  const url =
+  document.getElementById("resourceURL").value.trim();
+
+  if(!name || !url){
+
+    alert("Resource name और URL भरें.");
+
+    return;
+  }
+
+  resources.push({
+    id:Date.now(),
+    name:name,
+    category:category || "General",
+    url:url
+  });
+
+  localStorage.setItem(
+    "ARCSTFUG_RESOURCES",
+    JSON.stringify(resources)
+  );
+
+  document.getElementById("resourceName").value="";
+  document.getElementById("resourceCategory").value="";
+  document.getElementById("resourceURL").value="";
+
+  alert("Resource successfully added!");
+
+  openSection("resources");
+}
+
+
+/* =========================
+   RENDER COURSES
+========================= */
+
+function renderCourses(){
+
+  const box =
+  document.getElementById("courseList");
+
+  if(videos.length===0){
+
+    box.innerHTML=
+    `<div class="card empty">
+      अभी कोई course नहीं है।
+    </div>`;
+
+    return;
+  }
+
+  const courses =
+  [...new Set(
+    videos.map(v=>v.course)
+  )];
+
+  box.innerHTML =
+  courses.map(course=>{
+
+    const count =
+    videos.filter(
+      v=>v.course===course
+    ).length;
+
+    return `
+      <div class="card">
+
+        <h3>📚 ${escapeHTML(course)}</h3>
+
+        <p class="small">
+          ${count} video class
+        </p>
+
+        <button
+          class="primary"
+          style="margin-top:10px"
+          onclick="openCourse('${escapeAttr(course)}')">
+          View Course
+        </button>
+
+      </div>
+    `;
+
+  }).join("");
+}
+
+
+/* =========================
+   COURSE VIDEOS
+========================= */
+
+function openCourse(course){
+
+  openSection("videos");
+
+  const filtered =
+  videos.filter(
+    v=>v.course===course
+  );
+
+  const box =
+  document.getElementById("videoList");
+
+  box.innerHTML =
+  `<h2 style="margin-bottom:10px">
+    📚 ${escapeHTML(course)}
+  </h2>` +
+
+  filtered.map(videoHTML).join("");
+}
+
+
+/* =========================
+   RENDER VIDEOS
+========================= */
+
+function renderVideos(){
+
+  const box =
+  document.getElementById("videoList");
+
+  if(videos.length===0){
+
+    box.innerHTML=
+    `<div class="card empty">
+      Admin panel से authorized video जोड़ें।
+    </div>`;
+
+    return;
+  }
+
+  box.innerHTML =
+  videos.map(videoHTML).join("");
+}
+
+
+function videoHTML(video){
+
+  return `
+    <div class="card">
+
+      <h3>
+        ${escapeHTML(video.title)}
+      </h3>
+
+      <span class="badge">
+        ${escapeHTML(video.course)}
+      </span>
+
+      <video
+        controls
+        preload="metadata"
+        src="${escapeURL(video.url)}">
+      </video>
+
+      <button
+        class="danger"
+        style="margin-top:10px"
+        onclick="deleteVideo(${video.id})">
+        Delete
+      </button>
+
+    </div>
+  `;
+}
+
+
+/* =========================
+   DELETE VIDEO
+========================= */
+
+function deleteVideo(id){
+
+  if(!confirm("Delete this video?"))
+    return;
+
+  videos =
+  videos.filter(
+    video=>video.id!==id
+  );
+
+  localStorage.setItem(
+    "ARCSTFUG_VIDEOS",
+    JSON.stringify(videos)
+  );
+
+  renderAll();
+}
+
+
+/* =========================
+   RESOURCES
+========================= */
+
+function renderResources(){
+
+  const box =
+  document.getElementById("resourceList");
+
+  if(resources.length===0){
+
+    box.innerHTML=
+    `<div class="card empty">
+      अभी कोई resource नहीं है।
+    </div>`;
+
+    return;
+  }
+
+  box.innerHTML =
+  resources.map(resource=>`
+
+    <div class="card item">
+
+      <div>
+
+        <h3>
+          ${escapeHTML(resource.name)}
+        </h3>
+
+        <span class="badge">
+          ${escapeHTML(resource.category)}
+        </span>
+
+      </div>
+
+      <div>
+
+        <a
+          href="${escapeURL(resource.url)}"
+          target="_blank"
+          rel="noopener">
+
+          <button class="primary">
+            Open
+          </button>
+
+        </a>
+
+        <button
+          class="danger"
+          onclick="deleteResource(${resource.id})">
+          Delete
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join("");
+}
+
+
+/* =========================
+   DELETE RESOURCE
+========================= */
+
+function deleteResource(id){
+
+  if(!confirm("Delete this resource?"))
+    return;
+
+  resources =
+  resources.filter(
+    resource=>resource.id!==id
+  );
+
+  localStorage.setItem(
+    "ARCSTFUG_RESOURCES",
+    JSON.stringify(resources)
+  );
+
+  renderAll();
+}
+
+
+/* =========================
+   COMMUNITY
+========================= */
+
+function openCommunity(){
+
+  const telegram =
+  "https://t.me/";
+
+  window.open(
+    telegram,
+    "_blank"
+  );
+}
+
+
+/* =========================
+   SECURITY HELPERS
+========================= */
+
+function escapeHTML(value){
+
+  return String(value)
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
+}
+
+
+function escapeAttr(value){
+
+  return String(value)
+  .replace(/\\/g,"\\\\")
+  .replace(/'/g,"\\'");
+}
+
+
+function escapeURL(value){
+
+  return String(value)
+  .replace(/"/g,"%22")
+  .replace(/</g,"%3C")
+  .replace(/>/g,"%3E");
+}
+
+
+/* =========================
+   COUNTERS
+========================= */
+
+function updateCounters(){
+
+  document.getElementById(
+    "videoCount"
+  ).textContent=videos.length;
+
+  document.getElementById(
+    "resourceCount"
+  ).textContent=resources.length;
+}
+
+
+/* =========================
+   RENDER ALL
+========================= */
+
+function renderAll(){
+
+  renderCourses();
+
+  renderVideos();
+
+  renderResources();
+
+  updateCounters();
+}
+
+
+renderAll();
+
+</script>
+
+</body>
+</html>
+```
